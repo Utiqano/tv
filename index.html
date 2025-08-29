@@ -13,7 +13,6 @@
             background: linear-gradient(135deg, #1e2a44 0%, #2a4066 100%);
             color: #fff;
             overflow-x: hidden;
-            min-height: 100vh;
         }
 
         /* Login Page */
@@ -22,36 +21,32 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(5px);
             animation: fadeIn 1s ease-in;
-            padding: 20px;
-            box-sizing: border-box;
         }
         #login h1 {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-size: 2.5em;
             margin-bottom: 20px;
             color: #00ddeb;
             text-shadow: 0 0 10px rgba(0, 221, 235, 0.5);
         }
         #login label {
-            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-size: 1.1em;
             margin: 10px 0 5px;
             color: #ddd;
         }
         #login input, #login select {
-            width: 100%;
-            max-width: 300px;
+            width: 250px;
             padding: 10px;
             margin: 5px 0;
             border: none;
             border-radius: 5px;
             background: #2e3b55;
             color: #fff;
-            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            font-size: 1em;
             transition: all 0.3s ease;
-            box-sizing: border-box;
         }
         #login input:focus, #login select:focus {
             outline: none;
@@ -67,7 +62,6 @@
             color: #1e2a44;
             font-weight: bold;
             cursor: pointer;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
             transition: transform 0.3s, box-shadow 0.3s;
         }
         #login button:hover {
@@ -78,20 +72,20 @@
         /* Admin Dashboard */
         #admin-dashboard, #user-dashboard { display: none; }
         .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
             width: 280px;
             background: #1a2338;
             padding: 20px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
             overflow-y: auto;
             transition: transform 0.3s ease;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
         }
         .sidebar h2 {
             color: #00ddeb;
-            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-size: 1.8em;
             margin-bottom: 20px;
             text-align: center;
         }
@@ -108,7 +102,6 @@
         .form-section h3 {
             margin: 0 0 10px;
             color: #ddd;
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
         }
         .form-section input {
             width: 100%;
@@ -118,8 +111,7 @@
             border-radius: 5px;
             background: #3a4a6b;
             color: #fff;
-            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
-            box-sizing: border-box;
+            font-size: 0.9em;
         }
         .form-section input:focus {
             outline: none;
@@ -134,7 +126,6 @@
             color: #1e2a44;
             font-weight: bold;
             cursor: pointer;
-            font-size: clamp(0.85rem, 2.5vw, 0.9rem);
             transition: background 0.3s;
         }
         .form-section button:hover {
@@ -149,7 +140,6 @@
             color: #fff;
             font-weight: bold;
             cursor: pointer;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .logout-btn:hover {
@@ -160,15 +150,14 @@
         /* Main Content */
         .main-content {
             margin-left: 300px;
-            padding: 20px;
+            padding: 30px;
             min-height: 100vh;
             background: #2a4066;
             border-radius: 10px;
             margin: 20px;
-            box-sizing: border-box;
         }
         .main-content h1 {
-            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-size: 2em;
             color: #00ddeb;
             margin-bottom: 20px;
         }
@@ -187,92 +176,28 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            height: clamp(250px, 50vh, 400px);
-        }
         canvas {
-            width: 100% !important;
-            height: 100% !important;
+            max-width: 100%;
             background: #fff;
             border-radius: 10px;
             padding: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            box-sizing: border-box;
         }
 
         /* Responsive Design */
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
-                position: relative;
                 height: auto;
-                box-shadow: none;
+                position: relative;
             }
             .main-content {
                 margin-left: 0;
-                margin: 10px;
-                padding: 15px;
-            }
-            .chart-container {
-                height: clamp(200px, 45vh, 350px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            #login {
-                padding: 15px;
-            }
-            #login input, #login select {
-                max-width: 250px;
-            }
-            .sidebar {
-                padding: 15px;
-            }
-            .form-section {
-                padding: 10px;
-            }
-            .main-content {
-                margin: 10px;
-                padding: 10px;
-            }
-            .page {
-                padding: 15px;
-            }
-            .chart-container {
-                height: clamp(200px, 40vh, 300px);
-            }
-            .main-content h1 {
-                font-size: clamp(1.2rem, 3.5vw, 1.6rem);
-            }
-        }
-
-        @media (max-width: 480px) {
-            #login h1 {
-                font-size: clamp(1.5rem, 4vw, 1.8rem);
-            }
-            #login button {
-                padding: 10px 20px;
-                font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-            }
-            .sidebar h2 {
-                font-size: clamp(1.2rem, 3.5vw, 1.5rem);
-            }
-            .form-section h3 {
-                font-size: clamp(1rem, 3vw, 1.2rem);
-            }
-            .form-section input, .form-section button, .logout-btn {
-                font-size: clamp(0.8rem, 2.5vw, 0.85rem);
-            }
-            .chart-container {
-                height: clamp(150px, 35vh, 250px);
+                margin-top: 20px;
             }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 <body>
 
@@ -309,7 +234,7 @@
             </div>
             <div class="form-section">
                 <h3>Suivi Absentéisme</h3>
-                <inputWSTR:0;input type="text" id="mois-abs" placeholder="Mois (ex: 2025-08)">
+                <input type="text" id="mois-abs" placeholder="Mois (ex: 2025-08)">
                 <input type="number" id="pourcentage-abs" min="0" max="5" step="0.1" placeholder="Pourcentage sur 5">
                 <button onclick="submitData('abs')">Soumettre</button>
             </div>
@@ -326,21 +251,15 @@
         <div class="main-content">
             <div id="page1" class="page">
                 <h1>Page 1: Suivi 5S Usine</h1>
-                <div class="chart-container">
-                    <canvas id="chart-5s"></canvas>
-                </div>
+                <canvas id="chart-5s"></canvas>
             </div>
             <div id="page2" class="page">
                 <h1>Page 2: Suivi Gemba Usine</h1>
-                <div class="chart-container">
-                    <canvas id="chart-gemba"></canvas>
-                </div>
+                <canvas id="chart-gemba"></canvas>
             </div>
             <div id="page3" class="page">
                 <h1>Page 3: Suivi Absentéisme</h1>
-                <div class="chart-container">
-                    <canvas id="chart-abs"></canvas>
-                </div>
+                <canvas id="chart-abs"></canvas>
             </div>
         </div>
     </div>
@@ -406,118 +325,36 @@
         // Rendu des charts pour utilisateur
         let charts = {};
         function renderCharts() {
-            renderChart('5s', 'chart-5s', 'Suivi 5S Usine', 100, '#00ddeb', 'Performance 5S par mois (%)');
-            renderChart('gemba', 'chart-gemba', 'Suivi Gemba Usine', 100, '#ffcc00', 'Performance Gemba par mois (%)');
-            renderChart('abs', 'chart-abs', 'Suivi Absentéisme', 5, '#ff4444', 'Taux d\'absentéisme par mois (%)');
+            renderChart('5s', 'chart-5s', 'Suivi 5S Usine', 100, '#00ddeb');
+            renderChart('gemba', 'chart-gemba', 'Suivi Gemba Usine', 100, '#ffcc00');
+            renderChart('abs', 'chart-abs', 'Suivi Absentéisme', 5, '#ff4444');
         }
-        function renderChart(type, canvasId, label, maxY, color, chartTitle) {
+        function renderChart(type, canvasId, label, maxY, color) {
             const data = getData(`data-${type}`);
-            const labels = data.length > 0 ? data.map(d => d.mois) : ['Aucune donnée'];
-            const values = data.length > 0 ? data.map(d => d.pourcentage) : [0];
+            const labels = data.map(d => d.mois);
+            const values = data.map(d => d.pourcentage);
             const ctx = document.getElementById(canvasId).getContext('2d');
             if (charts[canvasId]) charts[canvasId].destroy();
             charts[canvasId] = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: label,
                         data: values,
-                        backgroundColor: data.length > 0 ? color + '99' : '#cccccc99',
-                        borderColor: data.length > 0 ? color : '#cccccc',
-                        borderWidth: 1,
-                        barThickness: 'flex',
-                        maxBarThickness: 40,
-                        minBarThickness: 20,
-                        hoverBackgroundColor: data.length > 0 ? color : '#cccccc',
-                        hoverBorderColor: data.length > 0 ? color : '#cccccc',
-                        hoverBorderWidth: 2
+                        borderColor: color,
+                        backgroundColor: color + '33', // Semi-transparent fill
+                        fill: true,
+                        tension: 0.4
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: maxY,
-                            grid: {
-                                color: '#3a4a6b',
-                                lineWidth: 1,
-                                borderDash: [5, 5]
-                            },
-                            ticks: {
-                                color: '#fff',
-                                callback: function(value) {
-                                    return value + '%';
-                                },
-                                stepSize: maxY === 5 ? 0.5 : 10,
-                                font: { size: window.innerWidth <= 480 ? 10 : 12 }
-                            },
-                            title: {
-                                display: true,
-                                text: 'Pourcentage (%)',
-                                color: '#fff',
-                                font: { size: window.innerWidth <= 480 ? 12 : 14, weight: 'bold' }
-                            }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { 
-                                color: '#fff', 
-                                maxRotation: window.innerWidth <= 480 ? 60 : 45, 
-                                minRotation: window.innerWidth <= 480 ? 60 : 45,
-                                font: { size: window.innerWidth <= 480 ? 10 : 12 },
-                                autoSkip: true,
-                                maxTicksLimit: 10
-                            },
-                            title: {
-                                display: true,
-                                text: 'Mois',
-                                color: '#fff',
-                                font: { size: window.innerWidth <= 480 ? 12 : 14, weight: 'bold' }
-                            }
-                        }
+                        y: { beginAtZero: true, max: maxY, grid: { color: '#3a4a6b' } },
+                        x: { grid: { color: '#3a4a6b' } }
                     },
                     plugins: {
-                        legend: {
-                            labels: { 
-                                color: '#fff', 
-                                font: { size: window.innerWidth <= 480 ? 10 : 14 }
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: data.length > 0 ? chartTitle : 'Aucune donnée disponible',
-                            color: '#00ddeb',
-                            font: { size: window.innerWidth <= 480 ? 14 : 18, weight: 'bold' },
-                            padding: { top: 10, bottom: 20 }
-                        },
-                        tooltip: {
-                            enabled: data.length > 0,
-                            backgroundColor: '#1e2a44',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.dataset.label}: ${context.raw}%`;
-                                }
-                            }
-                        },
-                        datalabels: {
-                            display: data.length > 0,
-                            color: '#fff',
-                            anchor: 'end',
-                            align: 'top',
-                            formatter: function(value) {
-                                return value + '%';
-                            },
-                            font: { size: window.innerWidth <= 480 ? 10 : 12, weight: 'bold' }
-                        }
-                    },
-                    animation: {
-                        duration: 1000,
-                        easing: 'easeOutQuart'
+                        legend: { labels: { color: '#fff' } }
                     }
                 }
             });
@@ -535,12 +372,7 @@
         function showPage(pageNum) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(`page${pageNum}`).classList.add('active');
-            // Forcer la mise à jour des graphs lors de l'affichage de la page
-            renderCharts();
         }
-
-        // Initialiser les graphs après le chargement de la page
-        window.addEventListener('resize', renderCharts);
     </script>
 </body>
 </html>
