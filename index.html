@@ -84,7 +84,7 @@
             transition: transform 0.3s ease;
         }
         .sidebar h2 {
-            color: #00ddeb;
+            colorユリカ #00ddeb;
             font-size: 1.8em;
             margin-bottom: 20px;
             text-align: center;
@@ -181,6 +181,7 @@
             background: #fff;
             border-radius: 10px;
             padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Responsive Design */
@@ -325,43 +326,102 @@
         // Rendu des charts pour utilisateur
         let charts = {};
         function renderCharts() {
-            renderChart('5s', 'chart-5s', 'Suivi 5S Usine', 100, '#00ddeb');
-            renderChart('gemba', 'chart-gemba', 'Suivi Gemba Usine', 100, '#ffcc00');
-            renderChart('abs', 'chart-abs', 'Suivi Absentéisme', 5, '#ff4444');
+            renderChart('5s', 'chart-5s', 'Suivi 5S Usine', 100, '#00ddeb', 'Performance 5S par mois (%)');
+            renderChart('gemba', 'chart-gemba', 'Suivi Gemba Usine', 100, '#ffcc00', 'Performance Gemba par mois (%)');
+            renderChart('abs', 'chart-abs', 'Suivi Absentéisme', 5, '#ff4444', 'Taux d\'absentéisme par mois (%)');
         }
-        function renderChart(type, canvasId, label, maxY, color) {
+        function renderChart(type, canvasId, label, maxY, color, chartTitle) {
             const data = getData(`data-${type}`);
             const labels = data.map(d => d.mois);
             const values = data.map(d => d.pourcentage);
             const ctx = document.getElementById(canvasId).getContext('2d');
             if (charts[canvasId]) charts[canvasId].destroy();
             charts[canvasId] = new Chart(ctx, {
-                type: 'bar', // Changé de 'line' à 'bar'
+                type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: label,
                         data: values,
-                        backgroundColor: color + '99', // Semi-transparent fill
+                        backgroundColor: color + '99',
                         borderColor: color,
-                        borderWidth: 1
+                        borderWidth: 1,
+                        barThickness: 30,
+                        hoverBackgroundColor: color,
+                        hoverBorderColor: color,
+                        hoverBorderWidth: 2
                     }]
                 },
                 options: {
                     scales: {
-                        y: { 
-                            beginAtZero: true, 
-                            max: maxY, 
-                            grid: { color: '#3a4a6b' },
-                            ticks: { color: '#fff' }
+                        y: {
+                            beginAtZero: true,
+                            max: maxY,
+                            grid: {
+                                color: '#3a4a6b',
+                                lineWidth: 1,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                color: '#fff',
+                                callback: function(value) {
+                                    return value + '%'; // Ajoute le symbole % aux ticks
+                                },
+                                stepSize: maxY === 5 ? 0.5 : 10 // Pas plus fin pour absentéisme
+                            },
+                            title: {
+                                display: true,
+                                text: 'Pourcentage (%)',
+                                color: '#fff',
+                                font: { size: 14, weight: 'bold' }
+                            }
                         },
-                        x: { 
+                        x: {
                             grid: { display: false },
-                            ticks: { color: '#fff' }
+                            ticks: { color: '#fff', maxRotation: 45, minRotation: 45 },
+                            title: {
+                                display: true,
+                                text: 'Mois',
+                                color: '#fff',
+                                font: { size: 14, weight: 'bold' }
+                            }
                         }
                     },
                     plugins: {
-                        legend: { labels: { color: '#fff' } }
+                        legend: {
+                            labels: { color: '#fff', font: { size: 14 } }
+                        },
+                        title: {
+                            display: true,
+                            text: chartTitle,
+                            color: '#00ddeb',
+                            font: { size: 18, weight: 'bold' },
+                            padding: { top: 10, bottom: 20 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1e2a44',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: true,
+                            color: '#fff',
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: function(value) {
+                                return value + '%';
+                            },
+                            font: { size: 12, weight: 'bold' }
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeOutQuart'
                     }
                 }
             });
@@ -381,5 +441,73 @@
             document.getElementById(`page${pageNum}`).classList.add('active');
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+<body>
+
+    <!-- Page de login -->
+    <div id="login">
+        <h1>Login</h1>
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username"><br>
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password"><br>
+        <label for="role">Rôle:</label>
+        <select id="role">
+            <option value="admin">Admin</option>
+            <option value="utilisateur">Utilisateur</option>
+        </select><br>
+        <button onclick="login()">Se connecter</button>
+    </div>
+
+    <!-- Dashboard Admin -->
+    <div id="admin-dashboard">
+        <div class="sidebar">
+            <h2>Formulaires Admin</h2>
+            <div class="form-section">
+                <h3>Suivi 5S Usine</h3>
+                <input type="text" id="mois-5s" placeholder="Mois (ex: 2025-08)">
+                <input type="number" id="pourcentage-5s" min="0" max="100" placeholder="Pourcentage sur 100">
+                <button onclick="submitData('5s')">Soumettre</button>
+            </div>
+            <div class="form-section">
+                <h3>Suivi Gemba Usine</h3>
+                <input type="text" id="mois-gemba" placeholder="Mois (ex: 2025-08)">
+                <input type="number" id="pourcentage-gemba" min="0" max="100" placeholder="Pourcentage sur 100">
+                <button onclick="submitData('gemba')">Soumettre</button>
+            </div>
+            <div class="form-section">
+                <h3>Suivi Absentéisme</h3>
+                <input type="text" id="mois-abs" placeholder="Mois (ex: 2025-08)">
+                <input type="number" id="pourcentage-abs" min="0" max="5" step="0.1" placeholder="Pourcentage sur 5">
+                <button onclick="submitData('abs')">Soumettre</button>
+            </div>
+            <button class="logout-btn" onclick="logout()">Déconnexion</button>
+        </div>
+        <div class="main-content">
+            <h1>Dashboard Admin</h1>
+            <p>Utilisez la barre latérale pour soumettre des données.</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Utilisateur -->
+    <div id="user-dashboard">
+        <div class="main-content">
+            <div id="page1" class="page">
+                <h1>Page 1: Suivi 5S Usine</h1>
+                <canvas id="chart-5s"></canvas>
+            </div>
+            <div id="page2" class="page">
+                <h1>Page 2: Suivi Gemba Usine</h1>
+                <canvas id="chart-gemba"></canvas>
+            </div>
+            <div id="page3" class="page">
+                <h1>Page 3: Suivi Absentéisme</h1>
+                <canvas id="chart-abs"></canvas>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
