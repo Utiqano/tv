@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Suivi Usine</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e2a44 0%, #2a4066 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Login Page */
+        #login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 1s ease-in;
+        }
+        #login h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #00ddeb;
+            text-shadow: 0 0 10px rgba(0, 221, 235, 0.5);
+        }
+        #login label {
+            font-size: 1.1em;
+            margin: 10px 0 5px;
+            color: #ddd;
+        }
+        #login input, #login select {
+            width: 250px;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            background: #2e3b55;
+            color: #fff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        #login input:focus, #login select:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00ddeb;
+            background: #3a4a6b;
+        }
+        #login button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            background: #00ddeb;
+            color: #1e2a44;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        #login button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 221, 235, 0.4);
+        }
+
+        /* Admin Dashboard */
+        #admin-dashboard, #user-dashboard { display: none; }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: #1a2338;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+        .sidebar h2 {
+            color: #00ddeb;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-section {
+            margin-bottom: 20px;
+            background: #2e3b55;
+            padding: 15px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .form-section:hover {
+            transform: scale(1.02);
+        }
+        .form-section h3 {
+            margin: 0 0 10px;
+            color: #ddd;
+        }
+        .form-section input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            background: #3a4a6b;
+            color: #fff;
+            font-size: 0.9em;
+        }
+        .form-section input:focus {
+            outline: none;
+            box-shadow: 0 0 8px #00ddeb;
+        }
+        .form-section button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #00ddeb;
+            color: #1e2a44;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .form-section button:hover {
+            background: #00b8c5;
+        }
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background: #ff4444;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .logout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 300px;
+            padding: 30px;
+            min-height: 100vh;
+            background: #2a4066;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        .main-content h1 {
+            font-size: 2em;
+            color: #00ddeb;
+            margin-bottom: 20px;
+        }
+        .page {
+            display: none;
+            background: #1e2a44;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .page.active {
+            display: block;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        canvas {
+            max-width: 100%;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Page de login -->
+    <div id="login">
+        <h1>Login</h1>
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username"><br>
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password"><br>
+        <label for="role">Rôle:</label>
+        <select id="role">
+            <option value="admin">Admin</option>
+            <option value="utilisateur">Utilisateur</option>
+        </select><br>
+        <button onclick="login()">Se connecter</button>
+    </div>
+
+    <!-- Dashboard Admin -->
+    <div id="admin-dashboard">
+        <div class="sidebar">
+            <h2>Formulaires Admin</h2>
+            <div class="form-section">
+                <h3>Suivi 5S Usine</h3>
+                <input type="text" id="mois-5s" placeholder="Mois (ex: 2025-08)">
+                <input type="number" id="pourcentage-5s" min="0" max="100" placeholder="Pourcentage sur 100">
+                <button onclick="submitData('5s')">Soumettre</button>
+            </div>
+            <div class="form-section">
+                <h3>Suivi Gemba Usine</h3>
+                <input type="text" id="mois-gemba" placeholder="Mois (ex: 2025-08)">
+                <input type="number" id="pourcentage-gemba" min="0" max="100" placeholder="Pourcentage sur 100">
+                <button onclick="submitData('gemba')">Soumettre</button>
+            </div>
+            <div class="form-section">
+                <h3>Suivi Absentéisme</h3>
+                <input type="text" id="mois-abs" placeholder="Mois (ex: 2025-08)">
+                <input type="number" id="pourcentage-abs" min="0" max="5" step="0.1" placeholder="Pourcentage sur 5">
+                <button onclick="submitData('abs')">Soumettre</button>
+            </div>
+            <button class="logout-btn" onclick="logout()">Déconnexion</button>
+        </div>
+        <div class="main-content">
+            <h1>Dashboard Admin</h1>
+            <p>Utilisez la barre latérale pour soumettre des données.</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Utilisateur -->
+    <div id="user-dashboard">
+        <div class="main-content">
+            <div id="page1" class="page">
+                <h1>Page 1: Suivi 5S Usine</h1>
+                <canvas id="chart-5s"></canvas>
+            </div>
+            <div id="page2" class="page">
+                <h1>Page 2: Suivi Gemba Usine</h1>
+                <canvas id="chart-gemba"></canvas>
+            </div>
+            <div id="page3" class="page">
+                <h1>Page 3: Suivi Absentéisme</h1>
+                <canvas id="chart-abs"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Stockage des données (utilisation de localStorage pour persistance simple)
+        function getData(key) {
+            return JSON.parse(localStorage.getItem(key)) || [];
+        }
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        // Fonction de login
+        function login() {
+            const role = document.getElementById('role').value;
+            document.getElementById('login').style.display = 'none';
+            if (role === 'admin') {
+                document.getElementById('admin-dashboard').style.display = 'block';
+            } else {
+                document.getElementById('user-dashboard').style.display = 'block';
+                renderCharts();
+                startPageRotation();
+            }
+        }
+
+        // Fonction de déconnexion (uniquement pour admin)
+        function logout() {
+            document.getElementById('admin-dashboard').style.display = 'none';
+            document.getElementById('login').style.display = 'flex';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('role').value = 'admin';
+        }
+
+        // Soumission des données par admin
+        function submitData(type) {
+            let mois, pourcentage, key;
+            if (type === '5s') {
+                mois = document.getElementById('mois-5s').value;
+                pourcentage = parseFloat(document.getElementById('pourcentage-5s').value);
+                key = 'data-5s';
+            } else if (type === 'gemba') {
+                mois = document.getElementById('mois-gemba').value;
+                pourcentage = parseFloat(document.getElementById('pourcentage-gemba').value);
+                key = 'data-gemba';
+            } else if (type === 'abs') {
+                mois = document.getElementById('mois-abs').value;
+                pourcentage = parseFloat(document.getElementById('pourcentage-abs').value);
+                key = 'data-abs';
+            }
+            if (mois && !isNaN(pourcentage)) {
+                let data = getData(key);
+                data.push({ mois, pourcentage });
+                data.sort((a, b) => a.mois.localeCompare(b.mois));
+                saveData(key, data);
+                alert('Données soumises avec succès !');
+            } else {
+                alert('Veuillez remplir les champs correctement.');
+            }
+        }
+
+        // Rendu des charts pour utilisateur
+        let charts = {};
+        function renderCharts() {
+            renderChart('5s', 'chart-5s', 'Suivi 5S Usine', 100, '#00ddeb');
+            renderChart('gemba', 'chart-gemba', 'Suivi Gemba Usine', 100, '#ffcc00');
+            renderChart('abs', 'chart-abs', 'Suivi Absentéisme', 5, '#ff4444');
+        }
+        function renderChart(type, canvasId, label, maxY, color) {
+            const data = getData(`data-${type}`);
+            const labels = data.map(d => d.mois);
+            const values = data.map(d => d.pourcentage);
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            if (charts[canvasId]) charts[canvasId].destroy();
+            charts[canvasId] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: label,
+                        data: values,
+                        borderColor: color,
+                        backgroundColor: color + '33', // Semi-transparent fill
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { beginAtZero: true, max: maxY, grid: { color: '#3a4a6b' } },
+                        x: { grid: { color: '#3a4a6b' } }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#fff' } }
+                    }
+                }
+            });
+        }
+
+        // Rotation automatique des pages pour utilisateur
+        let currentPage = 1;
+        function startPageRotation() {
+            showPage(currentPage);
+            setInterval(() => {
+                currentPage = (currentPage % 3) + 1;
+                showPage(currentPage);
+            }, 10000);
+        }
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${pageNum}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
