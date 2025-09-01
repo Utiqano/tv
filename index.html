@@ -358,7 +358,6 @@
             console.log('Firebase initialized successfully, SDK version:', firebase.SDK_VERSION);
             auth = firebase.auth();
             database = firebase.database();
-            // Monitor database connectivity
             database.ref('.info/connected').on('value', (snapshot) => {
                 if (snapshot.val() === true) {
                     console.log('Connected to Firebase Realtime Database');
@@ -388,6 +387,34 @@
         let charts = {};
         let slideshowInterval = null;
 
+        // Objective values for each metric
+        const objectives = {
+            accident: 0,
+            reclamation: 0,
+            scrap: 6,
+            trp: 70,
+            dle: 62,
+            planning: 95,
+            disponibilite: 95,
+            absenteisme: 3,
+            '5s': 90,
+            gemba: 80
+        };
+
+        // Y-axis scales for each metric
+        const yAxisScales = {
+            accident: null, // Auto scale
+            reclamation: null, // Auto scale
+            scrap: { min: 0, max: 20 },
+            trp: { min: 0, max: 100 },
+            dle: { min: 0, max: 100 },
+            planning: { min: 0, max: 100 },
+            disponibilite: { min: 0, max: 100 },
+            absenteisme: { min: 0, max: 5 },
+            '5s': { min: 0, max: 100 },
+            gemba: { min: 0, max: 100 }
+        };
+
         // Login function
         function login() {
             const email = document.getElementById('email').value;
@@ -408,7 +435,6 @@
                         errorMessageDiv.style.display = 'none';
                         document.getElementById('login-container').classList.add('hidden');
 
-                        // Determine role based on email
                         if (user.email === 'admin@wkw.com') {
                             currentRole = 'admin';
                             document.getElementById('admin-container').classList.remove('hidden');
@@ -640,8 +666,17 @@
                             const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
                             gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
                             gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+
+                            // Sort data by month to ensure chronological order
+                            dataStore[section].sort((a, b) => a.month.localeCompare(b.month));
+
+                            // Dynamic bar colors based on objective
+                            const barColors = dataStore[section].map(item => 
+                                item.value >= objectives[section] ? '#22c55e' : '#ef4444'
+                            );
+
                             charts[section] = new Chart(canvas, {
-                                type: 'line',
+                                type: 'bar',
                                 data: {
                                     labels: dataStore[section].map(item => {
                                         try {
@@ -652,16 +687,25 @@
                                             return item.month;
                                         }
                                     }),
-                                    datasets: [{
-                                        label: section.charAt(0).toUpperCase() + section.slice(1),
-                                        data: dataStore[section].map(item => item.value),
-                                        borderColor: '#1e3a8a',
-                                        backgroundColor: gradient,
-                                        fill: true,
-                                        tension: 0.4,
-                                        pointRadius: 5,
-                                        pointBackgroundColor: '#1e3a8a'
-                                    }]
+                                    datasets: [
+                                        {
+                                            label: section.charAt(0).toUpperCase() + section.slice(1),
+                                            data: dataStore[section].map(item => item.value),
+                                            backgroundColor: barColors,
+                                            borderColor: barColors,
+                                            borderWidth: 1
+                                        },
+                                        {
+                                            label: 'Objective',
+                                            data: dataStore[section].map(() => objectives[section]),
+                                            type: 'line',
+                                            borderColor: '#000000',
+                                            borderDash: [5, 5],
+                                            fill: false,
+                                            pointRadius: 0,
+                                            borderWidth: 2
+                                        }
+                                    ]
                                 },
                                 options: {
                                     responsive: true,
@@ -693,6 +737,10 @@
                                     scales: {
                                         y: {
                                             beginAtZero: true,
+                                            ...(yAxisScales[section] ? {
+                                                min: yAxisScales[section].min,
+                                                max: yAxisScales[section].max
+                                            } : {}),
                                             title: {
                                                 display: true,
                                                 text: section === 'accident' || section === 'reclamation' ? 'Number' : 'Percentage',
