@@ -12,11 +12,12 @@
             background: linear-gradient(135deg, #1e3a8a, #60a5fa);
             color: #1f2937;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         .navbar {
             background: linear-gradient(to right, #1e40af, #3b82f6);
             padding: 15px 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -30,24 +31,25 @@
         .navbar .nav-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
         .navbar a {
             color: #ffffff;
             text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 14px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.3s ease;
             position: relative;
+            background: rgba(255, 255, 255, 0.1);
         }
         .navbar a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
             color: #e0f2fe;
         }
         .navbar a::after {
@@ -56,55 +58,56 @@
             bottom: -2px;
             left: 50%;
             width: 0;
-            height: 2px;
+            height: 3px;
             background: #ffffff;
             transition: all 0.3s ease;
             transform: translateX(-50%);
         }
         .navbar a:hover::after {
-            width: 50%;
+            width: 60%;
         }
         .navbar button {
             background: linear-gradient(to right, #ef4444, #dc2626);
             color: #ffffff;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.3s ease;
         }
         .navbar button:hover {
             background: linear-gradient(to right, #dc2626, #b91c1c);
-            transform: scale(1.05);
+            transform: translateY(-2px);
         }
         .container {
             max-width: 95vw;
             margin: 40px auto;
             padding: 30px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
         }
         .login-container {
-            max-width: 450px;
+            max-width: 500px;
             margin: 100px auto;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
             text-align: center;
             animation: scaleIn 0.5s ease-out;
         }
         .login-container h2 {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             background: linear-gradient(to right, #1e40af, #3b82f6);
             -webkit-background-clip: text;
@@ -116,17 +119,17 @@
             display: block;
             width: 100%;
             margin: 15px 0;
-            padding: 14px;
+            padding: 16px;
             border: 1px solid #d1d5db;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             background: #f9fafb;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
         input:focus {
             outline: none;
             border-color: #3b82f6;
-            box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
         }
         button {
             background: linear-gradient(to right, #2563eb, #3b82f6);
@@ -138,11 +141,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
         button:hover {
             background: linear-gradient(to right, #1d4ed8, #2563eb);
-            transform: scale(1.05);
+            transform: translateY(-2px);
         }
         .login-container button {
             animation: pulse 2s infinite;
@@ -168,7 +171,7 @@
             margin: 0 0 20px;
             color: #1e3a8a;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
         }
         #page-1 h1 {
             animation: fadeInSlideUp 2s ease-in-out, glow 3s ease-in-out infinite;
@@ -180,7 +183,7 @@
             max-height: 600px;
             margin: 20px auto;
             border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             background: #ffffff;
         }
         .no-data {
@@ -191,6 +194,48 @@
         }
         .hidden {
             display: none;
+        }
+        .logo {
+            display: block;
+            margin: 20px auto;
+            max-width: 150px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .table-container {
+            margin: 20px auto;
+            max-width: 90%;
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            background: #ffffff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background: linear-gradient(to right, #1e40af, #3b82f6);
+            color: #ffffff;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        tr:hover {
+            background: #e0f2fe;
+            transition: background 0.2s ease;
         }
         @keyframes scaleIn {
             0% {
@@ -239,100 +284,122 @@
 </head>
 <body>
     <div id="login-container" class="login-container">
+        <img src="https://th.bing.com/th/id/R.c06fee3a742f9b19daf2ce2eeb13017d?rik=XbbJpAxIg4mvpQ&pid=ImgRaw&r=0" alt="WTU Logo" class="logo">
         <h2>WTU Dashboard Login</h2>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
+        <input type="email" id="email" placeholder="Email" aria-label="Email">
+        <input type="password" id="password" placeholder="Password" aria-label="Password">
         <div id="error-message" class="error-message"></div>
         <button onclick="login()"><i class="fas fa-sign-in-alt"></i> Login</button>
     </div>
 
     <div id="admin-container" class="container hidden">
-        <div class="navbar">
+        <img src="https://th.bing.com/th/id/R.c06fee3a742f9b19daf2ce2eeb13017d?rik=XbbJpAxIg4mvpQ&pid=ImgRaw&r=0" alt="WTU Logo" class="logo">
+        <div class="navbar" role="navigation" aria-label="Main navigation">
             <div class="nav-links">
-                <a href="#" onclick="showSection('accident')"><i class="fas fa-exclamation-triangle"></i> Accident de travail</a>
-                <a href="#" onclick="showSection('reclamation')"><i class="fas fa-comment-dots"></i> Reclamation client</a>
-                <a href="#" onclick="showSection('scrap')"><i class="fas fa-trash"></i> Suivi Scrap Plant</a>
-                <a href="#" onclick="showSection('trp')"><i class="fas fa-chart-line"></i> Suivi TRP Plant</a>
-                <a href="#" onclick="showSection('dle')"><i class="fas fa-tachometer-alt"></i> Suivi DLE Plant</a>
-                <a href="#" onclick="showSection('planning')"><i class="fas fa-calendar-check"></i> Taux de respect planning</a>
-                <a href="#" onclick="showSection('disponibilite')"><i class="fas fa-cogs"></i> Disponibilité/Machine</a>
-                <a href="#" onclick="showSection('absenteisme')"><i class="fas fa-user-slash"></i> Suivi Absenteisme</a>
-                <a href="#" onclick="showSection('5s')"><i class="fas fa-broom"></i> Suivi 5S</a>
-                <a href="#" onclick="showSection('gemba')"><i class="fas fa-chalkboard-teacher"></i> Suivi Gemba OJT</a>
+                <a href="#" onclick="showSection('accident')" aria-label="Accident de travail section"><i class="fas fa-exclamation-triangle"></i> Accident de travail</a>
+                <a href="#" onclick="showSection('reclamation')" aria-label="Reclamation client section"><i class="fas fa-comment-dots"></i> Reclamation client</a>
+                <a href="#" onclick="showSection('scrap')" aria-label="Suivi Scrap Plant section"><i class="fas fa-trash"></i> Suivi Scrap Plant</a>
+                <a href="#" onclick="showSection('trp')" aria-label="Suivi TRP Plant section"><i class="fas fa-chart-line"></i> Suivi TRP Plant</a>
+                <a href="#" onclick="showSection('dle')" aria-label="Suivi DLE Plant section"><i class="fas fa-tachometer-alt"></i> Suivi DLE Plant</a>
+                <a href="#" onclick="showSection('planning')" aria-label="Taux de respect planning section"><i class="fas fa-calendar-check"></i> Taux de respect planning</a>
+                <a href="#" onclick="showSection('disponibilite')" aria-label="Disponibilité/Machine section"><i class="fas fa-cogs"></i> Disponibilité/Machine</a>
+                <a href="#" onclick="showSection('absenteisme')" aria-label="Suivi Absenteisme section"><i class="fas fa-user-slash"></i> Suivi Absenteisme</a>
+                <a href="#" onclick="showSection('5s')" aria-label="Suivi 5S section"><i class="fas fa-broom"></i> Suivi 5S</a>
+                <a href="#" onclick="showSection('gemba')" aria-label="Suivi Gemba OJT section"><i class="fas fa-chalkboard-teacher"></i> Suivi Gemba OJT</a>
             </div>
-            <button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            <button onclick="logout()" aria-label="Log out"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
 
         <div id="accident" class="section hidden">
             <h2>Accident de travail/Working Accident</h2>
-            <input type="month" id="accident-month">
-            <input type="number" id="accident-number" placeholder="Number of accidents">
+            <input type="month" id="accident-month" aria-label="Select month">
+            <input type="number" id="accident-number" placeholder="Number of accidents" aria-label="Number of accidents">
             <button onclick="submitData('accident')">Submit</button>
         </div>
         <div id="reclamation" class="section hidden">
             <h2>Reclamation client/Customer claim</h2>
-            <input type="month" id="reclamation-month">
-            <input type="number" id="reclamation-number" placeholder="Number of claims">
+            <input type="month" id="reclamation-month" aria-label="Select month">
+            <input type="number" id="reclamation-number" placeholder="Number of claims" aria-label="Number of claims">
             <button onclick="submitData('reclamation')">Submit</button>
         </div>
         <div id="scrap" class="section hidden">
             <h2>Suivi Scrap Plant/Scrap follow up</h2>
-            <input type="month" id="scrap-month">
-            <input type="number" id="scrap-percentage" placeholder="Percentage">
+            <input type="month" id="scrap-month" aria-label="Select month">
+            <input type="number" id="scrap-percentage" placeholder="Percentage" aria-label="Scrap percentage">
             <button onclick="submitData('scrap')">Submit</button>
         </div>
         <div id="trp" class="section hidden">
             <h2>Suivi TRP Plant/OEE follow up</h2>
-            <input type="month" id="trp-month">
-            <input type="number" id="trp-percentage" placeholder="Percentage">
+            <input type="month" id="trp-month" aria-label="Select month">
+            <input type="number" id="trp-percentage" placeholder="Percentage" aria-label="TRP percentage">
             <button onclick="submitData('trp')">Submit</button>
         </div>
         <div id="dle" class="section hidden">
             <h2>Suivi DLE Plant/DLE follow up</h2>
-            <input type="month" id="dle-month">
-            <input type="number" id="dle-percentage" placeholder="Percentage">
+            <input type="month" id="dle-month" aria-label="Select month">
+            <input type="number" id="dle-percentage" placeholder="Percentage" aria-label="DLE percentage">
             <button onclick="submitData('dle')">Submit</button>
         </div>
         <div id="planning" class="section hidden">
             <h2>Taux de respect planning/Production Plan fulfillment</h2>
-            <input type="month" id="planning-month">
-            <input type="number" id="planning-percentage" placeholder="Percentage">
+            <input type="month" id="planning-month" aria-label="Select month">
+            <input type="number" id="planning-planned" placeholder="Quantité planifiée" aria-label="Planned quantity">
+            <input type="number" id="planning-realized" placeholder="Quantité réalisée" aria-label="Realized quantity">
+            <input type="number" id="planning-percentage" placeholder="Taux de respect PDP (%)" aria-label="PDP percentage" readonly>
             <button onclick="submitData('planning')">Submit</button>
         </div>
         <div id="disponibilite" class="section hidden">
             <h2>Disponibilité/Machine</h2>
-            <input type="month" id="disponibilite-month">
-            <input type="number" id="disponibilite-percentage" placeholder="Percentage">
+            <input type="month" id="disponibilite-month" aria-label="Select month">
+            <input type="number" id="disponibilite-percentage" placeholder="Percentage" aria-label="Availability percentage">
             <button onclick="submitData('disponibilite')">Submit</button>
         </div>
         <div id="absenteisme" class="section hidden">
             <h2>Suivi Absenteisme</h2>
-            <input type="month" id="absenteisme-month">
-            <input type="number" id="absenteisme-percentage" placeholder="Percentage">
+            <input type="month" id="absenteisme-month" aria-label="Select month">
+            <input type="number" id="absenteisme-percentage" placeholder="Percentage" aria-label="Absenteeism percentage">
             <button onclick="submitData('absenteisme')">Submit</button>
         </div>
         <div id="5s" class="section hidden">
             <h2>Suivi 5S/5S follow up</h2>
-            <input type="month" id="5s-month">
-            <input type="number" id="5s-percentage" placeholder="Percentage">
+            <input type="month" id="5s-month" aria-label="Select month">
+            <input type="number" id="5s-percentage" placeholder="Percentage" aria-label="5S percentage">
             <button onclick="submitData('5s')">Submit</button>
         </div>
         <div id="gemba" class="section hidden">
             <h2>Suivi Gemba OJT/Gemba OJT follow up</h2>
-            <input type="month" id="gemba-month">
-            <input type="number" id="gemba-percentage" placeholder="Percentage">
+            <input type="month" id="gemba-month" aria-label="Select month">
+            <input type="number" id="gemba-percentage" placeholder="Percentage" aria-label="Gemba OJT percentage">
             <button onclick="submitData('gemba')">Submit</button>
         </div>
     </div>
 
     <div id="user-container" class="container hidden">
+        <img src="https://th.bing.com/th/id/R.c06fee3a742f9b19daf2ce2eeb13017d?rik=XbbJpAxIg4mvpQ&pid=ImgRaw&r=0" alt="WTU Logo" class="logo">
         <div id="page-1" class="dashboard-page"><h1>Tableau de Bord WTU plant 2025</h1></div>
         <div id="page-2" class="dashboard-page hidden"><h2>Accident de travail/Working Accident</h2><canvas id="accident-chart"></canvas><div id="accident-no-data" class="no-data hidden">No data available</div></div>
         <div id="page-3" class="dashboard-page hidden"><h2>Reclamation client/Customer claim</h2><canvas id="reclamation-chart"></canvas><div id="reclamation-no-data" class="no-data hidden">No data available</div></div>
         <div id="page-4" class="dashboard-page hidden"><h2>Suivi Scrap Plant/Scrap follow up</h2><canvas id="scrap-chart"></canvas><div id="scrap-no-data" class="no-data hidden">No data available</div></div>
         <div id="page-5" class="dashboard-page hidden"><h2>Suivi TRP Plant/OEE follow up</h2><canvas id="trp-chart"></canvas><div id="trp-no-data" class="no-data hidden">No data available</div></div>
         <div id="page-6" class="dashboard-page hidden"><h2>Suivi DLE Plant/DLE follow up</h2><canvas id="dle-chart"></canvas><div id="dle-no-data" class="no-data hidden">No data available</div></div>
-        <div id="page-7" class="dashboard-page hidden"><h2>Taux de respect planning/Production Plan fulfillment</h2><canvas id="planning-chart"></canvas><div id="planning-no-data" class="no-data hidden">No data available</div></div>
+        <div id="page-7" class="dashboard-page hidden">
+            <h2>Taux de respect planning/Production Plan fulfillment</h2>
+            <canvas id="planning-chart"></canvas>
+            <div id="planning-no-data" class="no-data hidden">No data available</div>
+            <div class="table-container">
+                <table id="planning-table">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Quantité planifiée</th>
+                            <th>Quantité réalisée</th>
+                            <th>Taux de respect PDP (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
         <div id="page-8" class="dashboard-page hidden"><h2>Disponibilité/Machine</h2><canvas id="disponibilite-chart"></canvas><div id="disponibilite-no-data" class="no-data hidden">No data available</div></div>
         <div id="page-9" class="dashboard-page hidden"><h2>Suivi Absenteisme</h2><canvas id="absenteisme-chart"></canvas><div id="absenteisme-no-data" class="no-data hidden">No data available</div></div>
         <div id="page-10" class="dashboard-page hidden"><h2>Suivi 5S/5S follow up</h2><canvas id="5s-chart"></canvas><div id="5s-no-data" class="no-data hidden">No data available</div></div>
@@ -403,8 +470,8 @@
 
         // Y-axis scales for each metric
         const yAxisScales = {
-            accident: null, // Auto scale
-            reclamation: null, // Auto scale
+            accident: null,
+            reclamation: null,
             scrap: { min: 0, max: 20 },
             trp: { min: 0, max: 100 },
             dle: { min: 0, max: 100 },
@@ -439,6 +506,21 @@
                             currentRole = 'admin';
                             document.getElementById('admin-container').classList.remove('hidden');
                             showSection('accident');
+                            // Add event listener for planning inputs
+                            const plannedInput = document.getElementById('planning-planned');
+                            const realizedInput = document.getElementById('planning-realized');
+                            const percentageInput = document.getElementById('planning-percentage');
+                            [plannedInput, realizedInput].forEach(input => {
+                                input.addEventListener('input', () => {
+                                    const planned = parseFloat(plannedInput.value);
+                                    const realized = parseFloat(realizedInput.value);
+                                    if (!isNaN(planned) && !isNaN(realized) && planned > 0) {
+                                        percentageInput.value = ((realized / planned) * 100).toFixed(1);
+                                    } else {
+                                        percentageInput.value = '';
+                                    }
+                                });
+                            });
                         } else if (user.email === 'user@wkw.com') {
                             currentRole = 'user';
                             document.getElementById('user-container').classList.remove('hidden');
@@ -520,13 +602,24 @@
                     if (data) {
                         Object.keys(dataStore).forEach(section => {
                             dataStore[section] = Array.isArray(data[section])
-                                ? data[section].filter(item => 
-                                    item && 
-                                    typeof item.month === 'string' && 
-                                    item.month.match(/^\d{4}-\d{2}$/) && 
-                                    typeof item.value === 'number' && 
-                                    !isNaN(item.value)
-                                )
+                                ? data[section].filter(item => {
+                                    if (section === 'planning') {
+                                        return item && 
+                                            typeof item.month === 'string' && 
+                                            item.month.match(/^\d{4}-\d{2}$/) && 
+                                            typeof item.planned === 'number' && 
+                                            !isNaN(item.planned) &&
+                                            typeof item.realized === 'number' && 
+                                            !isNaN(item.realized) &&
+                                            typeof item.percentage === 'number' && 
+                                            !isNaN(item.percentage);
+                                    }
+                                    return item && 
+                                        typeof item.month === 'string' && 
+                                        item.month.match(/^\d{4}-\d{2}$/) && 
+                                        typeof item.value === 'number' && 
+                                        !isNaN(item.value);
+                                })
                                 : [];
                         });
                         console.log('Data loaded from Firebase:', dataStore);
@@ -613,17 +706,36 @@
         function submitData(section) {
             try {
                 const month = document.getElementById(`${section}-month`).value;
-                const value = document.getElementById(`${section}-${section === 'accident' || section === 'reclamation' ? 'number' : 'percentage'}`).value;
-                if (month && value && month.match(/^\d{4}-\d{2}$/) && !isNaN(parseFloat(value))) {
-                    dataStore[section].push({ month, value: parseFloat(value) });
-                    document.getElementById(`${section}-month`).value = '';
-                    document.getElementById(`${section}-${section === 'accident' || section === 'reclamation' ? 'number' : 'percentage'}`).value = '';
-                    saveData();
-                    alert('Data submitted successfully!');
-                    console.log(`Submitted data for ${section}:`, { month, value });
+                if (section === 'planning') {
+                    const planned = parseFloat(document.getElementById('planning-planned').value);
+                    const realized = parseFloat(document.getElementById('planning-realized').value);
+                    const percentage = parseFloat(document.getElementById('planning-percentage').value);
+                    if (month && month.match(/^\d{4}-\d{2}$/) && !isNaN(planned) && planned >= 0 && !isNaN(realized) && realized >= 0 && !isNaN(percentage) && percentage >= 0 && percentage <= 100) {
+                        dataStore[section].push({ month, planned, realized, percentage });
+                        document.getElementById('planning-month').value = '';
+                        document.getElementById('planning-planned').value = '';
+                        document.getElementById('planning-realized').value = '';
+                        document.getElementById('planning-percentage').value = '';
+                        saveData();
+                        alert('Data submitted successfully!');
+                        console.log(`Submitted data for ${section}:`, { month, planned, realized, percentage });
+                    } else {
+                        alert('Please fill all fields with valid data (e.g., month as YYYY-MM, quantities as non-negative numbers, percentage between 0-100).');
+                        console.warn('Invalid form data for:', section, { month, planned, realized, percentage });
+                    }
                 } else {
-                    alert('Please fill all fields with valid data (e.g., month as YYYY-MM, value as a number).');
-                    console.warn('Invalid form data for:', section, { month, value });
+                    const value = parseFloat(document.getElementById(`${section}-${section === 'accident' || section === 'reclamation' ? 'number' : 'percentage'}`).value);
+                    if (month && month.match(/^\d{4}-\d{2}$/) && !isNaN(value) && value >= 0) {
+                        dataStore[section].push({ month, value });
+                        document.getElementById(`${section}-month`).value = '';
+                        document.getElementById(`${section}-${section === 'accident' || section === 'reclamation' ? 'number' : 'percentage'}`).value = '';
+                        saveData();
+                        alert('Data submitted successfully!');
+                        console.log(`Submitted data for ${section}:`, { month, value });
+                    } else {
+                        alert('Please fill all fields with valid data (e.g., month as YYYY-MM, value as a non-negative number).');
+                        console.warn('Invalid form data for:', section, { month, value });
+                    }
                 }
             } catch (error) {
                 console.error('Error in submitData:', error);
@@ -667,13 +779,20 @@
                             gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
                             gradient.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
 
-                            // Sort data by month to ensure chronological order
+                            // Sort data by month
                             dataStore[section].sort((a, b) => a.month.localeCompare(b.month));
 
                             // Dynamic bar colors based on objective
-                            const barColors = dataStore[section].map(item => 
-                                item.value >= objectives[section] ? '#22c55e' : '#ef4444'
-                            );
+                            const barColors = dataStore[section].map(item => {
+                                const value = section === 'planning' ? item.percentage : item.value;
+                                const objective = objectives[section];
+                                // Metrics where lower is better: red if above, green if below/equal
+                                if (['accident', 'reclamation', 'scrap', 'absenteisme'].includes(section)) {
+                                    return value > objective ? '#ef4444' : '#22c55e';
+                                }
+                                // Metrics where higher is better: green if above/equal, red if below
+                                return value >= objective ? '#22c55e' : '#ef4444';
+                            });
 
                             charts[section] = new Chart(canvas, {
                                 type: 'bar',
@@ -690,7 +809,7 @@
                                     datasets: [
                                         {
                                             label: section.charAt(0).toUpperCase() + section.slice(1),
-                                            data: dataStore[section].map(item => item.value),
+                                            data: dataStore[section].map(item => section === 'planning' ? item.percentage : item.value),
                                             backgroundColor: barColors,
                                             borderColor: barColors,
                                             borderWidth: 1
@@ -765,10 +884,30 @@
                                     }
                                 }
                             });
+
+                            // Update planning table
+                            if (section === 'planning') {
+                                const tableBody = document.querySelector('#planning-table tbody');
+                                tableBody.innerHTML = '';
+                                dataStore[section].forEach(item => {
+                                    const row = document.createElement('tr');
+                                    row.innerHTML = `
+                                        <td>${new Date(item.month + '-01').toLocaleString('en-US', { month: 'long', year: 'numeric' })}</td>
+                                        <td>${item.planned.toFixed(0)}</td>
+                                        <td>${item.realized.toFixed(0)}</td>
+                                        <td>${item.percentage.toFixed(1)}%</td>
+                                    `;
+                                    tableBody.appendChild(row);
+                                });
+                            }
+
                             console.log(`Chart updated for ${section}`);
                         } else {
                             canvas.classList.add('hidden');
                             noDataDiv.classList.remove('hidden');
+                            if (section === 'planning') {
+                                document.querySelector('#planning-table tbody').innerHTML = '';
+                            }
                             console.log(`No data for ${section}`);
                         }
                     }
